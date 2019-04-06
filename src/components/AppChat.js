@@ -3,7 +3,7 @@ import './../css/App.css';
 import { firebaseDb } from './../firebase/index.js'
 import Message from './Message.js'
 import ChatBox from './ChatBox.js'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 const messagesRef = firebaseDb.ref('messages')
 
@@ -20,23 +20,7 @@ class AppChat extends Component {
     }
 	}
 
-  render() {
-    return (
-      <MuiThemeProvider>
-        <div className="App">
-          <div className="App-header">
-            <h2>Chat</h2>
-          </div>
-          <div className="MessageList">
-            {this.state.messages.map((m, i) => {
-              return <Message key={i} message={m} />
-            })}
-          </div>
-          <ChatBox onTextChange={this.onTextChange} onButtonClick={this.onButtonClick} />
-        </div>
-      </MuiThemeProvider>
-    );
-  }
+
 
   onTextChange(e) {
     if(e.target.name == 'user_name') {
@@ -84,8 +68,25 @@ class AppChat extends Component {
         messages : msgs
       });
     })
-  }
+	}
 
+	render() {
+    return (
+      <MuiThemeProvider>
+        <div className="App">
+          <div className="App-header">
+            <h2>Chat</h2>
+          </div>
+          <div className="MessageList">
+            {this.state.messages.map((m, i) => {
+              return <Message key={i} message={m} />
+            })}
+          </div>
+          <ChatBox onTextChange={this.onTextChange} onButtonClick={this.onButtonClick} />
+        </div>
+      </MuiThemeProvider>
+    );
+  }
 }
 
 export default AppChat;
